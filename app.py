@@ -23,7 +23,7 @@ DATA_FILE = BASE_DIR / "data.json"
 SERVERS_DIR = BASE_DIR / "servers"
 SERVERS_DIR.mkdir(exist_ok=True)
 
-NORMAL_PASSWORD = os.environ.get("NORMAL_PASSWORD", "shappno")
+NORMAL_PASSWORD = os.environ.get("NORMAL_PASSWORD", "TUFAN")
 
 RUNNING_PROCESSES = {}
 
@@ -41,7 +41,7 @@ def load_data():
             "maintenance_msg": "System under maintenance.",
             "theme_color": "#00ff41",
             "normal_password": NORMAL_PASSWORD,
-            "site_name": "SHAPPNO VPS",
+            "site_name": "TUFAN VPS",
             "auto_restart_interval": 300
         }
     }
@@ -68,7 +68,7 @@ def login_required(f):
         data = load_data()
         settings = data.get("settings", {})
         if settings.get("maintenance"):
-            return render_template("maintenance.html", message=settings.get("maintenance_msg", "Under maintenance"), site_name=settings.get("site_name", "SHAPPNO VPS"), theme_color=get_theme_color())
+            return render_template("maintenance.html", message=settings.get("maintenance_msg", "Under maintenance"), site_name=settings.get("site_name", "TUFAN VPS"), theme_color=get_theme_color())
         return f(*args, **kwargs)
     return decorated
 
@@ -257,7 +257,7 @@ def login():
         normal_pass = settings.get("normal_password", NORMAL_PASSWORD)
         
         if password != normal_pass:
-            return render_template("login.html", error="Wrong password", theme_color=get_theme_color(), site_name=settings.get("site_name", "SHAPPNO VPS"))
+            return render_template("login.html", error="Wrong password", theme_color=get_theme_color(), site_name=settings.get("site_name", "TUFAN VPS"))
         
         username = "admin"
         user = data["users"].get(username)
@@ -277,7 +277,7 @@ def login():
     
     data = load_data()
     settings = data.get("settings", {})
-    return render_template("login.html", error=None, theme_color=get_theme_color(), site_name=settings.get("site_name", "SHAPPNO VPS"))
+    return render_template("login.html", error=None, theme_color=get_theme_color(), site_name=settings.get("site_name", "TUFAN VPS"))
 
 @app.route("/logout")
 def logout():
@@ -291,7 +291,7 @@ def dashboard():
     username = session["username"]
     data = load_data()
     settings = data.get("settings", {})
-    site_name = settings.get("site_name", "SHAPPNO VPS")
+    site_name = settings.get("site_name", "TUFAN VPS")
     user_servers = {k: v for k, v in data["servers"].items() if v.get("owner") == username}
     changed = False
     for name, cfg in user_servers.items():
